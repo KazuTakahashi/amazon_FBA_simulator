@@ -1,0 +1,183 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: MS PGothic;
+    font-style: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+}
+ol,ul,li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#popup {
+    width: 360px;
+    height: auto;
+    background-color: #232f3e;
+}
+/* header */
+#header {
+    width: 360px;
+    height: 43px;
+    background: #232F3E;
+}
+
+#logo {
+    width: 326px;
+    height: 43px;
+    float: left;
+}
+button {
+    border: none;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    /* font-size:0;
+    line-height:0;
+    overflow:visible; */
+    cursor:pointer;
+}
+object {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+#close-button {
+    width: 20px;
+    height: 20px;
+    margin-top: 11px;
+    margin-left: 2px;
+    float: left;
+}
+#close-button > object {
+    width: 20px;
+    height: 20px;
+    /* margin-top: 3px;
+    margin-left: 1px; */
+}
+#main {
+    width: 340px;
+    height: auto;
+    margin-top: 0;
+    margin-left: 10px;
+}
+#product-title {
+    width: 296px;
+    height: auto;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 7px 22px 7px 22px;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05);
+}
+#product-title > h1 {
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 10px;
+    /* -webkit-transform: scale(0.9);
+    -webkit-transform-origin: 0 0; */
+    color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+#main > ul{
+    width: 340px;
+    height: auto;
+    margin-top: 10px;
+    padding-top: 6px;
+    background:linear-gradient(90deg,#F2F2F2 0%,#F2F2F2 50%,#FFFFFF 50%,#FFFFFF 100%);
+}
+#cost {
+
+}
+.row {
+    width: 340px;
+    height: auto;
+    display: block;
+}
+
+.index {
+    width: 168px;
+    height: 30px;
+    float: left;
+    position: relative;
+}
+.index > span {
+    width: 146px;
+    height: 13px;
+    margin-left: 21px;
+    padding:9px 0 8px 1px; 
+    font-size: 13px;
+    font-weight: 700;
+    color: #363636;
+    display: block;
+}
+.index > button{
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    left: 140px;
+    top: 9px;
+
+}
+.index > button > object{
+    width: 12px;
+    height: 12px;
+    /* it has written inside svg files */
+    /* cursor:pointer; */
+}
+.unit {
+    width: 46px;
+    height: 30px;
+    float: left;
+}
+.input {
+    width: 124px;
+    height: 30px;
+    float: left;
+}
+input {
+    width: 92px;
+    height: 24px;
+    border-radius:3px;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #E8E8E8;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    margin: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 13px;
+    text-align: right;
+}
+input#keyword:focus {
+    outline: none;
+}
+.num {
+    float: left;
+}
+
+#total-sales-fee-wrapper {
+    width: 340px;
+    height: 270px;
+}
+#total-sales-fee {
+    width: 340px;
+    height: 30px;
+}
+
+
+
+.clearfix:after {
+    clear: both;
+    content: '';
+    display: block;
+}

@@ -1,0 +1,41 @@
+<svg width="20" height="20" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>close_button</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-1022 277)">
+<rect x="1022" y="-277" width="20" height="20" fill="#E5E5E5"/>
+<clipPath id="clip-0" clip-rule="evenodd">
+<path d="M 693 -288L 1053 -288L 1053 343L 693 343L 693 -288Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="popup" clip-path="url(#clip-0)">
+<path d="M 693 -288L 1053 -288L 1053 343L 693 343L 693 -288Z" fill="#232F3E"/>
+<clipPath id="clip-1" clip-rule="evenodd">
+<path d="M 693 -288L 1053 -288L 1053 -245L 693 -245L 693 -288Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="header" clip-path="url(#clip-1)">
+<path d="M 693 -288L 1053 -288L 1053 -245L 693 -245L 693 -288Z" fill="#232F3E"/>
+<g id="close_button">
+<clipPath id="clip-2" clip-rule="evenodd">
+<path d="M 1022 -277L 1042 -277L 1042 -257L 1022 -257L 1022 -277Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="hover" clip-path="url(#clip-2)">
+<g id="close">
+<use xlink:href="#path0_fill" transform="translate(1025 -274)" fill="#DBDBDB"/>
+</g>
+</g>
+<clipPath id="clip-3" clip-rule="evenodd">
+<path d="M 1022 -277L 1042 -277L 1042 -257L 1022 -257L 1022 -277Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="normal" clip-path="url(#clip-3)">
+<g id="close">
+<use xlink:href="#path0_fill" transform="translate(1025 -274)" fill="#8C8C8C"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" fill-rule="evenodd" d="M 7.07104 5.65686L 1.41418 0L 0 1.41422L 5.65686 7.07108L 0 12.7279L 1.41418 14.1422L 7.07104 8.48526L 12.7279 14.1421L 14.1421 12.7279L 8.48523 7.07108L 14.1421 1.41422L 12.7279 0L 7.07104 5.65686Z"/>
+</defs>
+<style>svg { cursor: pointer; }</style>
+</svg>
