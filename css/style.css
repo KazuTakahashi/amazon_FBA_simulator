@@ -139,6 +139,11 @@ object {
     height: 30px;
     float: left;
 }
+.unit > span {
+    font-size: 12px;
+    font-weight: 700;
+    display: block;
+}
 .input {
     width: 124px;
     height: 30px;
