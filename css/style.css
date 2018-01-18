@@ -93,10 +93,8 @@ object {
     height: auto;
     margin-top: 10px;
     padding-top: 6px;
+    padding-bottom: 20px;
     background:linear-gradient(90deg,#F2F2F2 0%,#F2F2F2 50%,#FFFFFF 50%,#FFFFFF 100%);
-}
-#cost {
-
 }
 .row {
     width: 340px;
@@ -105,28 +103,26 @@ object {
 }
 
 .index {
-    width: 168px;
+    width: 149px;
     height: 30px;
+    padding-left: 21px;
     float: left;
     position: relative;
+    display: table;
 }
 .index > span {
-    width: 146px;
-    height: 13px;
-    margin-left: 21px;
-    padding:9px 0 8px 1px; 
+    vertical-align: middle;
     font-size: 13px;
     font-weight: 700;
     color: #363636;
-    display: block;
+    display: table-cell;
 }
 .index > button{
     width: 12px;
     height: 12px;
     position: absolute;
-    left: 140px;
+    left: 148px;
     top: 9px;
-
 }
 .index > button > object{
     width: 12px;
@@ -135,22 +131,31 @@ object {
     /* cursor:pointer; */
 }
 .unit {
-    width: 46px;
+    width: 33px;
     height: 30px;
+    padding-right: 13px;
+    display: table;
     float: left;
 }
 .unit > span {
-    font-size: 12px;
-    font-weight: 700;
-    display: block;
+    font-size: 11px;
+    color: #8C8C8C;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
 }
 .input {
     width: 124px;
     height: 30px;
     float: left;
 }
+.input > form{
+    width: 124px;
+    height: 30px;
+    margin-top: 3px;
+}
 input {
-    width: 92px;
+    width: 109px;
     height: 24px;
     border-radius:3px;
     box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05);
@@ -167,7 +172,18 @@ input#keyword:focus {
     outline: none;
 }
 .num {
+    width: 99px;
+    height: 30px;
+    padding-right: 25px;
+    display: table;
     float: left;
+}
+.num > span {
+    font-size: 13px;
+    color: rgb(0, 0, 0);
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
 }
 
 #total-sales-fee-wrapper {
@@ -179,7 +195,29 @@ input#keyword:focus {
     height: 30px;
 }
 
+.children {
+    width: 340px;
+    height: auto;
+}
+.children header > .index {
+    width: 139px;
+    padding-left: 31px;
+}
+.children > li > .index {
+    width: 129px;
+    padding-left: 41px;
+}
+.children > li > .index > span{
+    color: #939393;
+}
 
+#delivered-fee > .index {
+    width: 139px;
+    padding-left: 31px;
+}
+#delivered-fee > .index > span{
+    color: rgb(0, 0, 0);
+}
 
 .clearfix:after {
     clear: both;
