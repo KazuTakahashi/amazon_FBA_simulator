@@ -24,110 +24,127 @@
             <ul>
               <ul id="cost" class="row clearfix">
                 <div class="index"><span>商品原価</span></div>
-                <div class="unit"><span>\</span></div>
+                <div class="unit"><span>&yen;</span></div>
                 <div class="input">
                   <form action="#"><input type="text" value="31,200" placeholder="0" name="sum"></form>
                 </div>
               </ul>
-              <ul class="row">
+              <ul class="row clearfix">
                 <div class="index"><span>商品価格</span></div>
-                <div class="unit"><span>\</span></div>
+                <div class="unit"><span>&yen;</span></div>
                 <div class="input">
                   <form action="#"><input type="text" value="38,800" placeholder="0" name="sum"></form>
               </div>
               </ul>
               <ul class="row">
                 <div id="total-sales-fee-wrapper">
-                  <header id="total-sales-fee">
+                  <header id="total-sales-fee" class="clearfix">
                       <div class="index">
                         <span>出荷費用合計</span>
-                        <button type="button" name="scroll_button" value="down">
+                        <button id="toggle-button" type="button" name="scroll_button" value="down">
                             <object type="image/svg+xml" data="img/scroll_down_button.svg"></object>
                         </button>
                       </div>
-                      <div class="unit"><span>\</span></div>
+                      <div class="unit"><span>&yen;</span></div>
                       <div class="num"><span>5,352</span></div>
                   </header>
-                  <ul class="children">
-                    <li class="">
-                        <div id="total-exhibitant-fee-wrapper">
-                          <header id="total-exhibitant-fee">
-                              <div class="index"><span>出品手数料合計</span></div>
-                              <div class="unit"><span>\</span></div>
-                              <div class="num"><span>4,290</span></div>
-                          </header>
-                          <ul class="children">
-                            <li>
-                                <div class="index"><span>販売手数料</span></div>
-                                <div class="unit"><span>\</span></div>
-                                <div class="num"><span>4,198</span></div>
-                            </li>
-                            <li>
-                                <div class="index"><span>カテゴリー成約料</span></div>
-                                <div class="unit"><span>\</span></div>
-                                <div class="num"><span>108</span></div>
-                            </li>
-                          </ul>
-                        </div>
+                  <ul id="slide-toggle" class="children">
+                    <li id="total-exhibitant-fee-wrapper">
+                        <header id="total-exhibitant-fee" class="clearfix">
+                            <div class="index">
+                              <span>出品手数料合計</span>
+                              <button type="button" name="scroll_button" value="down">
+                                  <object type="image/svg+xml" data="img/scroll_down_button.svg"></object>
+                              </button>
+                            </div>
+                            <div class="unit"><span>&yen;</span></div>
+                            <div class="num"><span>4,290</span></div>
+                        </header>
+                        <ul class="children">
+                          <li class="clearfix">
+                              <div class="index"><span>販売手数料</span></div>
+                              <div class="unit"><span>&yen;</span></div>
+                              <div class="num"><span>4,198</span></div>
+                          </li>
+                          <li class="clearfix">
+                              <div class="index"><span>カテゴリー成約料</span></div>
+                              <div class="unit"><span>&yen;</span></div>
+                              <div class="num"><span>108</span></div>
+                          </li>
+                        </ul>
                     </li>
-                    <li class="">
-                        <div id="total-fba-fee-wrapper">
-                          <header id="total-fba-fee">
-                              <div class="index"><span>FBA手数料合計</span></div>
-                              <div class="unit"><span>\</span></div>
-                              <div class="num"><span>1,054</span></div>
-                          </header>
-                          <ul class="children">
-                            <li>
-                                <div class="index"><span>出荷作業手数料</span></div>
-                                <div class="unit"><span>\</span></div>
-                                <div class="num"><span>588</span></div>
-                            </li>
-                            <li>
-                                <div class="index"><span>発送重量手数料</span></div>
-                                <div class="unit"><span>\</span></div>
-                                <div class="num"><span>385</span></div>
-                            </li>
-                            <li>
-                                <div class="index"><span>月間保管手数料</span></div>
-                                <div class="unit"><span>\</span></div>
-                                <div class="num"><span>108</span></div>
-                            </li>
-                          </ul>
-                        </div>
+                    <li id="total-fba-fee-wrapper" class="">
+                        <header id="total-fba-fee" class="clearfix">
+                            <div class="index">
+                              <span>FBA手数料合計</span>
+                              <button type="button" name="scroll_button" value="down">
+                                  <object type="image/svg+xml" data="img/scroll_down_button.svg"></object>
+                              </button>
+                            </div>
+                            <div class="unit"><span>&yen;</span></div>
+                            <div class="num"><span>1,054</span></div>
+                        </header>
+                        <ul class="children">
+                          <li class="clearfix">
+                              <div class="index"><span>出荷作業手数料</span></div>
+                              <div class="unit"><span>&yen;</span></div>
+                              <div class="num"><span>588</span></div>
+                          </li>
+                          <li class="clearfix">
+                              <div class="index"><span>発送重量手数料</span></div>
+                              <div class="unit"><span>&yen;</span></div>
+                              <div class="num"><span>385</span></div>
+                          </li>
+                          <li class="clearfix">
+                              <div class="index"><span>月間保管手数料</span></div>
+                              <div class="unit"><span>&yen;</span></div>
+                              <div class="num"><span>108</span></div>
+                          </li>
+                        </ul>
                     </li>
-                    <li class="">
+                    <li id="delivered-fee"  class="clearfix">
                         <div class="index"><span>納品費用</span></div>
-                        <div class="unit"><span>\</span></div>
+                        <div class="unit"><span>&yen;</span></div>
                         <div class="input">
                           <form action="#"><input type="text" value="150" placeholder="0" name="sum"></form>
-                      </div>
+                        </div>
                     </li>
                   </ul>
                 </div>
               </ul>
-              <ul class="row">
+              <hr>
+              <ul class="row clearfix">
                 <div class="index"><span>総コスト</span></div>
-                <div class="unit"><span>\</span></div>
+                <div class="unit"><span>&yen;</span></div>
                 <div class="num"><span>36,552</span></div>
               </ul>
-              <ul class="row">
+              <ul class="row clearfix">
                 <div class="index"><span>純利益</span></div>
-                <div class="unit"><span>\</span></div>
+                <div class="unit"><span>&yen;</span></div>
                 <div class="num"><span>2,248</span></div>
               </ul>
-              <ul class="row">
+              <ul class="row clearfix">
                 <div class="index"><span>利益率</span></div>
-                <div class="unit"><span>\</span></div>
+                <div class="unit"><span>&yen;</span></div>
                 <div class="num"><span>5.79</span></div>
               </ul>
-              <ul class="row">
+              <ul class="row clearfix">
                 <div class="index"><span>投資利益率(ROI)</span></div>
-                <div class="unit"><span>\</span></div>
+                <div class="unit"><span>&yen;</span></div>
                 <div class="num"><span>6.15</span></div>
               </ul>
             </ul>
-          </section> -->
+          </section>
+          <footer id="footer">
+            <div id="info" class="clearfix">
+              <div id="size" class="info"><span>寸法：</span><span>49.0 x 27.0 x 10.0 cm</span></div>
+              <div id="weight" class="info"><span>重量：</span><span>3.057 kg</span></div>
+              <div id="asin" class="info"><span>ASIN：</span><span>B01M1LIXM6</span></div>
+            </div>
+            <div id="copyright">
+              <span>© 2018 Kazuki Takahashi</span>
+            </div>
+          </footer> -->
       </div>
     </body>
 </html>
