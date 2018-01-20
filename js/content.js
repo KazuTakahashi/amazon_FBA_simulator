@@ -14,20 +14,29 @@ chrome.runtime.sendMessage(// background.jsにasinデータを受け渡す
 
 //});
 
-chrome.runtime.onMessage.addListener(
-    function(msg, sender, callback) {
-        if (msg.command && (msg.command == "tab_change")) {
-            asin = $('#ASIN').val();// amazon商品ページからASINを取得
-            console.log(msg);
 
-            chrome.runtime.sendMessage(// background.jsにasinデータを受け渡す
-                { asin: asin },
-                function(response) {
-                    console.log(response);
-            });
-        }
-    }
-);
+let asin = $('#ASIN').val();// amazon商品ページからASINを取得
+chrome.runtime.sendMessage(// background.jsにasinデータを受け渡す
+    { asin: asin },
+    function(response) {
+        console.log("user2:", response);
+});
+
+
+// chrome.runtime.onMessage.addListener(
+//     function(msg, sender, callback) {
+//         if (msg.command && (msg.command == "tab_change")) {
+//             asin = $('#ASIN').val();// amazon商品ページからASINを取得
+//             console.log(msg);
+
+//             chrome.runtime.sendMessage(// background.jsにasinデータを受け渡す
+//                 { asin: asin },
+//                 function(response) {
+//                     console.log(response);
+//             });
+//         }
+//     }
+// );
 /*title = document.getElementById('productTitle').nodeValue;
 
 console.log(title);

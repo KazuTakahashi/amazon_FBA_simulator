@@ -11,7 +11,7 @@
     
     "content_scripts": [
       {
-        "matches": ["<all_urls>"],
+        "matches": ["https://www.amazon.co.jp/*"],
         "js": ["lib/jquery-3.2.1.min.js","js/content.js"],
         "run_at": "document_end"
       }
@@ -30,6 +30,6 @@
     },
     
     "permissions": [
-      "tabs"
+      "tabs","https://sellercentral.amazon.co.jp/fba/profitabilitycalculator/productmatches"
     ]
   }
