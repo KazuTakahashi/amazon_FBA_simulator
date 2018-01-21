@@ -14,27 +14,30 @@ $(function(){
 
 
     // 
-    var backgroundPage = chrome.extension.getBackgroundPage();
+    let backgroundPage = chrome.extension.getBackgroundPage();
+    let asin = backgroundPage.getASIN();
+    if(asin != null) {
+        $.ajax({
+            type: 'GET',
+            url: 'https://sellercentral.amazon.co.jp/fba/profitabilitycalculator/productmatches',
+            data: {
+                searchKey: asin,
+                language: 'ja_JP',
+                profitcalcToken: 'ibHsrDQYkpn6kkFIiBxJFTFw21gj3D'
+            },
+            dataType: 'json'
+        }).done(function(data){
+            //alert('success!!');
+            console.log("user4:", data.data[0]);
+            product = data.data[0];
+            $('#product-title').children('h1').text(product.title);
+    
+        }).fail(function(data){
+            //alert('error!!!');
+            console.log("通信エラー");
+        });
+    }
 
-    $.ajax({
-        type: 'GET',
-        url: 'https://sellercentral.amazon.co.jp/fba/profitabilitycalculator/productmatches',
-        data: {
-            searchKey: backgroundPage.getASIN().asin,
-            language: 'ja_JP',
-            profitcalcToken: 'ibHsrDQYkpn6kkFIiBxJFTFw21gj3D'
-        },
-        dataType: 'json'
-    }).done(function(data){
-        //alert('success!!');
-        console.log("user4:", data.data[0]);
-        product = data.data[0];
-        $('#product-title').children('h1').text(product.title);
-
-    }).fail(function(data){
-        //alert('error!!!');
-        console.log("通信エラー");
-    });
 
 
     // $(document).on("click", ".tooltip-button", function () {

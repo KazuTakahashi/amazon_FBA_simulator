@@ -12,13 +12,13 @@ const sendToContent = function(command, focusedTab){
     });
 };
 
-let asin;
-var getASIN = function(){
+let asin = null;
+var getASIN = function(){// var宣言でないと動かない
     console.log("user5:", asin);
     return asin;
 };
 
-let product;
+let product = null;
 var getProduct = function(){// var宣言でないと動かない
     return product;
 };
@@ -26,9 +26,9 @@ var getProduct = function(){// var宣言でないと動かない
 // 
 chrome.runtime.onMessage.addListener(
     function(request, sender, callback) {
-        chrome.tabs.getSelected(function(tab) {
-            callback(tab.title);
-        });
+        // chrome.tabs.getSelected(function(tab) {
+        //     callback(tab.title);
+        // });
         asin = request;
         console.log("user3:", asin);
         
@@ -37,13 +37,6 @@ chrome.runtime.onMessage.addListener(
 );
 
 /*chrome.browserAction.onClicked.addListener(function(tab) {
-    chrome.tabs.sendMessage(// content.jsにアクションボタンが押されたことを伝える
-        tab.id,
-        { command: "actbtn_push" },
-        function(msg) {
-            console.log("result message:", msg);
-        
-    });
 });*/
 
 
@@ -64,6 +57,7 @@ chrome.tabs.onActivated.addListener(function(tab) {// タブ変更イベント
             console.log("amazonページ");
         } else {
             console.log("amazonページではない");
+            asin = null;
             return true;
         }
         
@@ -73,9 +67,11 @@ chrome.tabs.onActivated.addListener(function(tab) {// タブ変更イベント
         result = tab.url.match( pattern );
         if(result) {
             console.log("商品ページ");
-            //console.log(result);
+            console.log(result[1]);
+            asin = result[1];
         }else{
             console.log("商品ページではない");
+            asin = null;
             return true;
         }
     });
@@ -105,8 +101,6 @@ chrome.tabs.onActivated.addListener(function(tab) {// タブ変更イベント
     // });
 
 });
-
-
 
 
 
