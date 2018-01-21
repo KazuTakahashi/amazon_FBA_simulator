@@ -1,42 +1,26 @@
+$(function() {
+    const sendASINToBackground = function(dataArr){
+        chrome.runtime.sendMessage(// background.jsにasinデータを受け渡す
+            dataArr,
+            function(response) {
+                console.log(response);
+        });
+    };
 
-
-//$(function() {
-/*var asin = $('#ASIN').val();// amazon商品ページからASINを取得
-console.log(asin);
-//
-chrome.runtime.sendMessage(// background.jsにasinデータを受け渡す
-    { asin: asin },
-    function(response) {
-        console.log(response);
+    let asin = $('#ASIN').val();// amazon商品ページからASINを取得
+    sendASINToBackground({ asin: asin });
+    
+    
+    chrome.runtime.onMessage.addListener(
+        function(msg, sender, callback) {
+            if (msg.command && (msg.command == "tab_change")) {// タブチェンジイベントをbackground.jsから取得
+                asin = $('#ASIN').val();// amazon商品ページからASINを取得
+                sendASINToBackground({ asin: asin });
+            }
+        }
+    );
 });
-*/
 
-
-//});
-
-
-let asin = $('#ASIN').val();// amazon商品ページからASINを取得
-chrome.runtime.sendMessage(// background.jsにasinデータを受け渡す
-    { asin: asin },
-    function(response) {
-        console.log("user2:", response);
-});
-
-
-// chrome.runtime.onMessage.addListener(
-//     function(msg, sender, callback) {
-//         if (msg.command && (msg.command == "tab_change")) {
-//             asin = $('#ASIN').val();// amazon商品ページからASINを取得
-//             console.log(msg);
-
-//             chrome.runtime.sendMessage(// background.jsにasinデータを受け渡す
-//                 { asin: asin },
-//                 function(response) {
-//                     console.log(response);
-//             });
-//         }
-//     }
-// );
 /*title = document.getElementById('productTitle').nodeValue;
 
 console.log(title);
@@ -69,12 +53,4 @@ console.log(title);
     //    console.log(classVals[i]);
     //}
 
-
-
-
-
-
-
 //});
-
-
