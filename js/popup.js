@@ -1,22 +1,30 @@
 
 $(function(){
-
     // popupページの取得
     $.ajax('target_page.html', {
-        timeout : 1000, // 1000 ms
+        timeout : 3000, // 3000 ms
         datatype:'html'
     }).done(function(data){
         var out_html = $($.parseHTML(data));//parse
-        $('#popup').empty().append(out_html.filter('#popup')[0].innerHTML);//insert
-    }).fail(function(jqXHR, textStatus, errorThrown){
-        alert('error!!!', textStatus);
-    });
+        $('#main').empty().append(out_html.filter('#main')[0].innerHTML);//insert
+    }).fail(function(xhr, status, error){
+        // エラーページの出力
+        //alert('error!!!', textStatus);
 
+        console.log(xhr);
+        console.log(xhr.status);
+        console.log(xhr.statusText );
+        console.log(status);
+        console.log(error);
+    });
 
     // 
     let backgroundPage = chrome.extension.getBackgroundPage();
-    let asin = backgroundPage.getASIN();
-    if(asin != null) {
+    //let asin = backgroundPage.getASIN();
+    let asin = backgroundPage.page.asin;
+    if(asin == null) { // Amazon商品ページではない
+
+    } else {// Amazon商品ページ
         $.ajax({
             type: 'GET',
             url: 'https://sellercentral.amazon.co.jp/fba/profitabilitycalculator/productmatches',
