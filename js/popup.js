@@ -9,6 +9,7 @@ $(function(){
         $('#main').empty().append(out_html.filter('#main')[0].innerHTML);//insert
     }).fail(function(xhr, status, error){
         // エラーページの出力
+        // jqueryでhtmlを追加
         //alert('error!!!', textStatus);
 
         console.log(xhr);
@@ -18,9 +19,8 @@ $(function(){
         console.log(error);
     });
 
-    // 
+    // AmazonAPIから商品データを取得
     let backgroundPage = chrome.extension.getBackgroundPage();
-    //let asin = backgroundPage.getASIN();
     let asin = backgroundPage.page.asin;
     if(asin == null) { // Amazon商品ページではない
 
