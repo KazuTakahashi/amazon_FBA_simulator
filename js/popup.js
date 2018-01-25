@@ -1,7 +1,8 @@
 
 $(function(){
     // popupページの取得
-    $.ajax('target_page.html', {
+    //$.ajax('target_page.html', {
+    $.ajax('_error_page.html', {
         timeout : 3000, // 3000 ms
         datatype:'html'
     }).done(function(data){
