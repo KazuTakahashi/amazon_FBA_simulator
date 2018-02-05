@@ -91,23 +91,28 @@ object {
     margin-left: 10px;
 }
 #product-title {
-    width: 296px;
+    width: 310px;
     height: auto;
     background-color: #ffffff;
     margin: 0;
-    padding: 7px 22px 7px 22px;
+    padding: 7px 15px 7px 15px;
     box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.05);
 }
 #product-title > h1 {
     font-style: normal;
     font-weight: normal;
     line-height: normal;
-    font-size: 10px;
+    font-size: 12px;
     /* -webkit-transform: scale(0.9);
     -webkit-transform-origin: 0 0; */
     color: #000000;
     margin: 0;
     padding: 0;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 
 #main > ul{
@@ -252,7 +257,7 @@ input#keyword:focus {
 .info {
     margin-top: 2px;
     font-size: 10px;
-    color: #FFFFFF;
+    color: #818181;
     float: left;
 }
 #size {
@@ -268,7 +273,7 @@ input#keyword:focus {
 #copyright {
     width: 340px;
     height: auto;
-    margin-top: 15px;
+    margin-top: 10px;
     display: table;
     user-select: none;
 }
@@ -362,6 +367,23 @@ hr {
 .tooltip-wrapper {
 	position: relative;
 }
+
+#error-title, #error-description {
+    width: 100%;
+    display: table;
+}
+#error-title span, #error-description span {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 14px;
+    font-weight: normal;
+    color: #ffffff;
+    display: table-cell;
+}
+#error-title span {
+    font-weight: 700;
+}
+
 .clearfix:after {
     clear: both;
     content: '';

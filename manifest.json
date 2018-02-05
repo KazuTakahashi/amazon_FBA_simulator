@@ -28,8 +28,8 @@
       "default_title": "Amazon FBA",
       "default_popup": "popup.html" 
     },
-    
+
     "permissions": [
-      "tabs","https://sellercentral.amazon.co.jp/fba/profitabilitycalculator/productmatches"
+      "tabs","https://sellercentral.amazon.co.jp/fba/profitabilitycalculator/productmatches", "https://sellercentral-japan.amazon.com/fba/profitabilitycalculator/getafnfee"
     ]
   }

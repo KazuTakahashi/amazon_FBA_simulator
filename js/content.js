@@ -1,23 +1,33 @@
+// ￥(全角)+カンマを取り除きIntへ変換
+const formatFromCommaToInt = function(str){
+    return parseInt(str.replace("￥ ", "").split(',').join('').trim());
+};
+
+const sendDataToBackground = function(dataArr){
+    chrome.runtime.sendMessage(// background.jsにデータを受け渡す
+        dataArr,
+        function(response) {
+            console.log(response);
+    });
+};
+
+
 $(function() {
-    // const sendASINToBackground = function(dataArr){
-    //     chrome.runtime.sendMessage(// background.jsにasinデータを受け渡す
-    //         dataArr,
-    //         function(response) {
-    //             console.log(response);
-    //     });
-    // };
 
     // let asin = $('#ASIN').val();// amazon商品ページからASINを取得
     // sendASINToBackground({ asin: asin });
     
     
     chrome.runtime.onMessage.addListener(
-        // function(msg, sender, callback) {
-        //     if (msg.command && (msg.command == "tab_change")) {// タブチェンジイベントをbackground.jsから取得
-        //         asin = $('#ASIN').val();// amazon商品ページからASINを取得
-        //         sendASINToBackground({ asin: asin });
-        //     }
-        // }
+        function(msg, sender, callback) {
+            console.log("root");
+            if (msg.command && (msg.command == "get_price")) {// タブチェンジイベントをbackground.jsから取得
+                //;// amazon商品ページから価格を取得
+                //asin = $('#ASIN').val();// amazon商品ページからASINを取得
+                console.log("root2");
+                sendDataToBackground({ cartPrice: formatFromCommaToInt($('#priceblock_ourprice').text()) });
+            }
+        }
     );
 });
 

@@ -1,24 +1,14 @@
 
-$(function(){
-    // popupページの取得
-    //$.ajax('target_page.html', {
-    $.ajax('_error_page.html', {
-        timeout : 3000, // 3000 ms
-        datatype:'html'
-    }).done(function(data){
-        var out_html = $($.parseHTML(data));//parse
-        $('#main').empty().append(out_html.filter('#main')[0].innerHTML);//insert
-    }).fail(function(xhr, status, error){
-        // エラーページの出力
-        // jqueryでhtmlを追加
-        //alert('error!!!', textStatus);
+// カンマ付きの価格(文字列)に変換
+const formatFromIntToComma = function(str){
+    let num = new String(str).replace(/,/g, "");
+    while(num != (num = num.replace(/^(-?\d+)(\d{3})/, "$1,$2")));
+    return num;
+};
 
-        console.log(xhr);
-        console.log(xhr.status);
-        console.log(xhr.statusText );
-        console.log(status);
-        console.log(error);
-    });
+
+$(function(){
+    // 読み込み画面
 
     // AmazonAPIから商品データを取得
     let backgroundPage = chrome.extension.getBackgroundPage();
@@ -36,16 +26,63 @@ $(function(){
             },
             dataType: 'json'
         }).done(function(data){
-            //alert('success!!');
-            console.log("user4:", data.data[0]);
+            console.log("user4:", data);
             product = data.data[0];
-            $('#product-title').children('h1').text(product.title);
-    
+
+            // popupページの取得
+            //$.ajax('target_page.html', {
+            $.ajax('target_page.html', {
+                timeout : 3000, // 3000 ms
+                datatype:'html'
+            }).done(function(data){
+                var out_html = $($.parseHTML(data));//parse
+                $('#main').empty().append(out_html.filter('#main')[0].innerHTML);//insert
+
+                $('#product-title').children('h1').text(product.title);
+                //alert(backgroundPage.page.cartPrice);
+                $('#price').find('input').val(formatFromIntToComma(backgroundPage.page.cartPrice));
+
+
+                // テスト
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://sellercentral-japan.amazon.com/fba/profitabilitycalculator/getafnfee?profitcalcToken=Z1UgBc1j2F027uhQmFIy9O4KzVy34j3D',
+                    //mimeType: "application/json",
+                    contentType: 'application/json;charset=UTF-8',
+                    //processData: false,
+                    data: JSON.stringify({// Jqueryがシリアライズするため、JSON文字列に変換する
+                        afnPriceStr: '3000',
+                        currency: 'JPY',
+                        futureFeeDate: '2015-10-23 00:00:00',
+                        hasFutureFee: false,
+                        hasTaxPage: true,
+                        marketPlaceId: 'A1VC38T7YXB528',
+                        mfnPriceStr: '2890',
+                        mfnShippingPriceStr: '200',
+                        productInfoMapping: product
+                    }),
+                    dataType: 'json'
+                }).done(function(data){
+                    console.log("user5:", data);
+
+                }).fail(function(data){
+                    console.log("通信エラー");
+                });
+
+
+
+
+            }).fail(function(xhr, status, error){
+                $('#main').empty().append("<div id=\"error-title\"><span>Read Error:</span></div><div id=\"error-description\"><span>html file could not be loaded.</span></div>");
+            });
+
         }).fail(function(data){
-            //alert('error!!!');
             console.log("通信エラー");
         });
     }
+
+
+
 
 
 

@@ -2,11 +2,14 @@
 var page = page || {};// 名前空間page
 page.asin = null;// ASIN
 page.url = null;// URL
+page.cartPrice = null;// カート価格
 
 // 現在のアクティブタグでAMAZON商品ページならASINをcontent_scripts(content.js)から取得するため、
 // イベントの通知をsendMessageをcontent.jsへ送る
 // ページがAMAZON商品ページ以外はcommonページを取得
 const sendToContent = function(command, focusedTab){
+    console.log("root1:", focusedTab.id);
+    
     chrome.tabs.sendMessage(
         focusedTab.id,
         { command: command },
@@ -55,13 +58,19 @@ const getASINFromAmazon = function(url){
     return asin;
 };
 
+// getASINFromAmazonの代替・テスト用
+const getASINFromAmazonForTest = function(url){
+    return 'B01CY3SO4Y';
+}
+
 // 
 chrome.runtime.onMessage.addListener(
     function(request, sender, callback) {
         // chrome.tabs.getSelected(function(tab) {
         //     callback(tab.title);
         // });
-        page.asin = request;
+        page.cartPrice = request.cartPrice;
+        console.log(page.cartPrice);
         return true;// 非同期のため明示的にtrueを返す
     }
 );
@@ -75,6 +84,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     else if(changeInfo.status == "complete") {// ページがすべて読み込まれ完了したとき
         chrome.tabs.getSelected(null, function(tab) {
             page.asin = getASINFromAmazon(tab.url);
+            // page.asin = getASINFromAmazonForTest(tab.url);
+            sendToContent("get_price", tab);
         });
     }
 });
@@ -85,6 +96,8 @@ chrome.tabs.onActivated.addListener(function(tab) {// タブ変更イベント
     chrome.tabs.getSelected(null, function(tab) {
         //console.log(tab.title + "\n" + tab.url);
         page.asin = getASINFromAmazon(tab.url);
+        // page.asin = getASINFromAmazonForTest(tab.url);
+        sendToContent('get_price', tab);
     });
     // 現在のウィンドウの取得(別ウィンドウを開いている場合の対策)
     // windowとtabがスコープの外側で処理ができなかったため、スコープの内側でcontent側と通信している
