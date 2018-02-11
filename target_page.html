@@ -14,10 +14,10 @@
           </header> -->
           <section id="main">
             <header id="product-title">
-              <h1>USB-C 充電器 RAVPower 20100mAh Type-C USBハブ モバイルバッテリー ( PD対応 Type-Cケーブル付 USB3.0 データ転送可能) MacBook / Zenbook / Matebook / XPS / スマホ など対応 RP-PB059</h1>
+              <h1>{{productInfo.title}}</h1>
               <div id="info" class="clearfix">
-                  <div id="size" class="info"><span>寸法：</span><span>49.0 x 27.0 x 10.0 cm</span></div>
-                  <div id="weight" class="info"><span>重量：</span><span>3.057 kg</span></div>
+                  <div id="size" class="info">寸法：<span>{{productInfo.width | number:1}}</span> <span>{{productInfo.dimensionUnit}}</span> x <span>{{productInfo.height | number:1}}</span> <span>{{productInfo.dimensionUnit}}</span> x <span>{{productInfo.length | number:1}}</span> <span>{{productInfo.dimensionUnit}}</span></div>
+                  <div id="weight" class="info">重量：<span>{{productInfo.weight | weight:productInfo.weightUnit}}</span> <span>{{productInfo.weightUnit}}</span></div>
                   <!-- <div id="asin" class="info"><span>ASIN：</span><span>B01M1LIXM6</span></div> -->
               </div>
             </header>
@@ -26,14 +26,14 @@
                 <div class="index"><span>商品原価</span></div>
                 <div class="unit"><span>&yen;</span></div>
                 <div class="input">
-                  <form action="#"><input type="text" value="31,200" placeholder="0" name="sum"></form>
+                  <form action="#"><input class="format-num"  ng-model="productInfo.cost" type="text" value="1,000"  placeholder="0" name="sum"></form>
                 </div>
               </ul>
               <ul id="price" class="row clearfix">
                 <div class="index"><span>商品価格</span></div>
                 <div class="unit"><span>&yen;</span></div>
                 <div class="input">
-                  <form action="#"><input type="text" value="38,800" placeholder="0" name="sum"></form>
+                  <form action="#"><input type="text" ng-model="productInfo.cartPrice" value="500" placeholder="0" name="sum"></form>
               </div>
               </ul>
               <ul class="row">
@@ -61,12 +61,12 @@
                             <div class="num"><span>4,290</span></div>
                         </header>
                         <ul class="children tooltip">
-                          <li class="clearfix">
+                          <li id="referral-fee" class="clearfix">
                               <div class="index"><span>販売手数料</span></div>
                               <div class="unit"><span>&yen;</span></div>
                               <div class="num"><span>4,198</span></div>
                           </li>
-                          <li class="clearfix">
+                          <li id="closing-fee" class="clearfix">
                               <div class="index"><span>カテゴリー成約料</span></div>
                               <div class="unit"><span>&yen;</span></div>
                               <div class="num"><span>108</span></div>
@@ -85,17 +85,17 @@
                             <div class="num"><span>1,054</span></div>
                         </header>
                         <ul class="children tooltip">
-                          <li class="clearfix">
+                          <li id="pick-and-pack-fee" class="clearfix">
                               <div class="index"><span>出荷作業手数料</span></div>
                               <div class="unit"><span>&yen;</span></div>
                               <div class="num"><span>588</span></div>
                           </li>
-                          <li class="clearfix">
+                          <li id="weight-handling-fee" class="clearfix">
                               <div class="index"><span>発送重量手数料</span></div>
                               <div class="unit"><span>&yen;</span></div>
                               <div class="num"><span>385</span></div>
                           </li>
-                          <li class="clearfix">
+                          <li id="storage-fee" class="clearfix">
                               <div class="index"><span>月間保管手数料</span></div>
                               <div class="unit"><span>&yen;</span></div>
                               <div class="num"><span>108</span></div>

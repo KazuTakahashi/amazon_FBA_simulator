@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" ng-app="myApp">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +8,20 @@
 
         <link rel="stylesheet" href="css/style.css">
         <script src="lib/jquery-3.2.1.min.js"></script>
-        <script src="lib/angular.min.js"></script>
-        <!-- <script type="text/javascript" src="lib/jquery.xdomainajax.js"></script> -->
+        <script src="lib/angular.js"></script>
         <script src="js/popup.js"></script>
+        <!-- <script type="text/javascript" src="lib/jquery.xdomainajax.js"></script> -->
     </head>
 
-    <body>
+    <body ng-controller="myAppController">
       <div id="popup">
+
+
+
+          <!-- <span ng-bind="productInfo.cartPrice"></span> -->
+          <!-- <form action="#"><input  type="text" value="111" placeholder="0" name="sum"></form> -->
+           
+
           <header id="header" class="clearfix">
             <object id="logo" type="image/svg+xml" data="img/logo.svg"></object>
             <button id="close-button" type="submit" name="action" value="send">

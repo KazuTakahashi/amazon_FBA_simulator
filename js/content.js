@@ -7,24 +7,19 @@ const sendDataToBackground = function(dataArr){
     chrome.runtime.sendMessage(// background.jsにデータを受け渡す
         dataArr,
         function(response) {
-            console.log(response);
+            console.log("content.js 10:", response);
     });
 };
 
 
 $(function() {
-
     // let asin = $('#ASIN').val();// amazon商品ページからASINを取得
     // sendASINToBackground({ asin: asin });
     
-    
     chrome.runtime.onMessage.addListener(
         function(msg, sender, callback) {
-            console.log("root");
             if (msg.command && (msg.command == "get_price")) {// タブチェンジイベントをbackground.jsから取得
                 //;// amazon商品ページから価格を取得
-                //asin = $('#ASIN').val();// amazon商品ページからASINを取得
-                console.log("root2");
                 sendDataToBackground({ cartPrice: formatFromCommaToInt($('#priceblock_ourprice').text()) });
             }
         }
