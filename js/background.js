@@ -1,41 +1,120 @@
 // 外部読み込み用変数・関数(const,let宣言はchrome.extension.getBackgroundPage()から読み込めないので注意)
 var page = page || {};// 名前空間page
-page.asin = null;// ASIN
-page.cartPrice = null;// カート価格
-
-page.productInfo = page.productInfo || {};
-page.productInfo.asin = "";
-page.productInfo.title = "";
-page.productInfo.cost = 0;
-page.productInfo.cartPrice = 0;
-page.productInfo.dimensionUnit = "";
-page.productInfo.width = 0.0;
-page.productInfo.height = 0.0;
-page.productInfo.length = 0.0;
-page.productInfo.weightUnit = "";
-page.productInfo.weight = 0.0;
-page.productInfo.referralFee = 0.0; //%
-page.productInfo.closingFee = 0; //
-page.productInfo.pickAndPackFee = 0; //
-page.productInfo.weightHandlingFee = 0; //
-page.productInfo.storageFee = 0; //
-page.productInfo.state = 1000;// no data: 1000, processing: 1001, compleate: 1100, error: 2000
-
 page.isAmazonProduct = false;// amazon商品ページならture
-page.state = 1000;// normal: 1000, processing: 1001, error: 2000
-
-
-page.testAsin = "B00H96GS8G";// テスト用asin
-page.testCartPrice = 570;// テスト用カート価格
 page.isTest = true;//
+
+var test = test || {};// 名前空間page
+test.asin = "4798149810";// テスト用asin
+test.cartPrice = 570;// テスト用カート価格
+
+// ポップアップ表示用データ
+var productInfo = productInfo || {};
+productInfo.asin = "";
+productInfo.title = "";
+productInfo.cost = 400;
+productInfo.cartPrice = 0;
+productInfo.dimensionUnit = "";
+productInfo.width = 0.0;
+productInfo.height = 0.0;
+productInfo.length = 0.0;
+productInfo.weightUnit = "";
+productInfo.weight = 0.0;
+productInfo.currency = 'JPY'; //
+productInfo.referralFee = 0; //
+productInfo.referralFeeRatio = 0.0; //%
+productInfo.fixedClosingFee = 0; //
+productInfo.variableClosingFee = 0; //
+productInfo.pickAndPackFee = 0; //
+productInfo.weightHandlingFee = 0; //
+productInfo.storageFee = 0; //
+productInfo.deliveredFee = 150; //
+productInfo.totalSalesFee = 0; //
+productInfo.totalCost = 0; //
+productInfo.profit = 0; //
+productInfo.profitMargin = 0.0; //
+productInfo.roi = 0.0; //
+productInfo.state = 1000;// no data: 1000, processing: 1001, compleate: 1100, error: 2000
+
+// 設定用データ
+var config = config || {};
+config.language = 'ja_JP';
+config.profitcalcToken = 'ibHsrDQYkpn6kkFIiBxJFTFw21gj3D';
+config.marketPlaceId = 'A1VC38T7YXB528';
+config.isProMerchant = false;
+config.storagePeriod = 30;
+
+// API 'productmatches'用データ
+var productmatches = productmatches || {};
+productmatches.url = 'https://sellercentral.amazon.co.jp/fba/profitabilitycalculator/productmatches';
+productmatches.data = productmatches.data || {};
+productmatches.data.searchKey = '';// asin
+productmatches.data.language = config.language;
+productmatches.data.profitcalcToken = config.profitcalcToken;
+
+// API 'getafnfee'用データ
+var getafnfee = getafnfee || {};
+getafnfee.url = 'https://sellercentral-japan.amazon.com/fba/profitabilitycalculator/getafnfee'
+getafnfee.profitcalcToken = 'Z1UgBc1j2F027uhQmFIy9O4KzVy34j3D';//
+getafnfee.data = getafnfee.data || {};
+getafnfee.data.afnPriceStr = '1000';// 基準価格
+getafnfee.data.mfnPriceStr = '1000';// 使用しない
+getafnfee.data.mfnShippingPriceStr = '100';// 使用しない
+getafnfee.data.currency = productInfo.currency;
+getafnfee.data.marketPlaceId = config.marketPlaceId;
+getafnfee.data.futureFeeDate = '2015-10-23 00:00:00';
+getafnfee.data.hasFutureFee = false;
+getafnfee.data.hasTaxPage = true;
+getafnfee.data.productInfoMapping = null;
+
+// content_scripts連携用
+// var ContentScripts = function() {
+//     if(!(this instanceof ContentScripts)) {
+//         return new ContentScripts();
+//     }
+//     this.commands = {
+//         getCartPrice: {
+//             sendData: {},
+//             recieveData: {},
+//             state: 1000,
+//             isValid: true
+//         },
+//         getAsin: {
+//             sendData: {},
+//             recieveData: {},
+//             state: 1000,
+//             isValid: true
+//         }
+//     };
+// }
+// ContentScripts.prototype.send = function(tab) {
+//     chrome.tabs.sendMessage(
+//         tab.id,
+//         this.cartPrice,
+//         function(msg) {
+//             console.log("background.js 18:", "result message:", msg);
+//     });
+// }
+// ContentScripts.prototype.recieve = function(value) {
+
+// }
+// var contentScripts = new ContentScripts();
+
+
+// contentScripts = contentScripts || {};
+// contentScripts.command = '';
+// contentScripts.state = 1000;
+// contentScripts.data = null;
+
 
 // 現在のアクティブタグでAMAZON商品ページならASINをcontent_scripts(content.js)から取得するため、
 // イベントの通知をsendMessageをcontent.jsへ送る
 // ページがAMAZON商品ページ以外はcommonページを取得
 const sendToContent = function(command, focusedTab){
+    console.log("background.js 113:");
     chrome.tabs.sendMessage(
         focusedTab.id,
         { command: command },
+        //ContentScriptsObj,
         function(msg) {
             console.log("background.js 18:", "result message:", msg);
     });
@@ -69,16 +148,11 @@ const getASINFromAmazonURL = function(url){
     return asin;
 };
 
-const getProductInfoFromAmazonAPI = function(asin, lang, token, productInfo){
-    page.productInfo.state = 1001;// 処理中に移行
+const getProductInfoFromAmazonAPI = function(productmatches, getafnfee, productInfo){
     $.ajax({
         type: 'GET',
-        url: 'https://sellercentral.amazon.co.jp/fba/profitabilitycalculator/productmatches',
-        data: {
-            searchKey: asin,
-            language: lang,
-            profitcalcToken: token
-        },
+        url: productmatches.url,
+        data: productmatches.data,
         dataType: 'json'
     }).done(function(data){
         console.log("user4:", data);
@@ -104,7 +178,7 @@ const getProductInfoFromAmazonAPI = function(asin, lang, token, productInfo){
         // weightUnitString:
         // width:
         if(data.succeed != "true") {
-            page.productInfo.state = 2000;// エラー状態
+            productInfo.state = 2000;// エラー状態
             return;
         }
         productInfo.asin = data.data[0].asin;
@@ -117,39 +191,29 @@ const getProductInfoFromAmazonAPI = function(asin, lang, token, productInfo){
         else if(data.data[0].weightUnit == 'grams') productInfo.weightUnit = 'g'
         else productInfo.weightUnit = data.data[0].weightUnit;
         productInfo.weight = data.data[0].weight;
-        
-        getFeesFromAmazonAPI('JPY', 'A1VC38T7YXB528', data.data[0], productInfo);
+
+        getafnfee.data.productInfoMapping = data.data[0];
+        getFeesFromAmazonAPI(getafnfee, productInfo);
         
     }).fail(function(data){
         console.log("通信エラー");
-        page.productInfo.state = 2000;// エラー状態
+        productInfo.state = 2000;// エラー状態
         return;
     });
 }
 
 
-const getFeesFromAmazonAPI = function(currency, marketPlaceId, info, productInfo){
+const getFeesFromAmazonAPI = function(getafnfee, productInfo){
     $.ajax({
         type: 'POST',
-        url: 'https://sellercentral-japan.amazon.com/fba/profitabilitycalculator/getafnfee?profitcalcToken=Z1UgBc1j2F027uhQmFIy9O4KzVy34j3D',
-        //mimeType: "application/json",
+        url: getafnfee.url + '?profitcalcToken=' + getafnfee.profitcalcToken,
         contentType: 'application/json;charset=UTF-8',
-        data: JSON.stringify({// Jqueryがシリアライズするため、JSON文字列に変換する
-            afnPriceStr: '1000',
-            currency: currency,
-            futureFeeDate: '2015-10-23 00:00:00',
-            hasFutureFee: false,
-            hasTaxPage: true,
-            marketPlaceId: marketPlaceId,
-            mfnPriceStr: '1000',
-            mfnShippingPriceStr: '100',
-            productInfoMapping: info
-        }),
+        data: JSON.stringify(getafnfee.data),// Jqueryがシリアライズするため、JSON文字列に変換する
         dataType: 'json'
     }).done(function(data){
         console.log("user5:", data);
         // afnFees:{
-        //  fixedClosingFee: {amount:, taxAmount:}　　カテゴリー成約料
+        //  fixedClosingFee: {amount:, taxAmount:}　　基本成約料(小口のみ)
         //  pickAndPackFee: {amount:, taxAmount:}　出荷作業手数料
         //  referralFee: {amount:, taxAmount:} 販売手数料
         //  storageFee: {amount:, taxAmount:}　月額保管手数料
@@ -158,91 +222,93 @@ const getFeesFromAmazonAPI = function(currency, marketPlaceId, info, productInfo
         // }
         // afnFutureFees: {}
         // mfnFees:{
-        //  fixedClosingFee: {amount:, taxAmount:}　カテゴリー成約料
+        //  fixedClosingFee: {amount:, taxAmount:}　基本成約料(小口のみ)
         //  referralFee: {amount:, taxAmount:} 販売手数料
         //  variableClosingFee: {amount:, taxAmount:}　　カテゴリー成約料
         // }
         // mfnFutureFees: {}
 
         if(data.succeed != "true") {
-            page.productInfo.state = 2000;// エラー状態
+            productInfo.state = 2000;// エラー状態
             return;
         }
 
         console.log("user6:", data.data.afnFees);
 
-        productInfo.referralFee = data.data.afnFees.referralFee.amount/1000;
-        productInfo.closingFee = data.data.afnFees.fixedClosingFee.amount;
+        productInfo.referralFeeRatio = data.data.afnFees.referralFee.amount/parseInt(getafnfee.data.afnPriceStr);// 率に直す
+        productInfo.fixedClosingFee = data.data.afnFees.fixedClosingFee.amount;
+        productInfo.variableClosingFee = data.data.afnFees.variableClosingFee.amount;
         productInfo.pickAndPackFee = data.data.afnFees.pickAndPackFee.amount;
         productInfo.weightHandlingFee = data.data.afnFees.weightHandlingFee.amount;
         productInfo.storageFee = data.data.afnFees.storageFee.amount;
         
         console.log("background.js 142:", productInfo);
 
-        page.productInfo.state = 1100;// 処理の終了
+        productInfo.state = 1100;// 処理の終了
 
     }).fail(function(data){
         console.log("通信エラー");
-        page.productInfo.state = 2000;// エラー状態
+        productInfo.state = 2000;// エラー状態
         return;
     });
 }
 
-const init = function(tab){
+const init = function(tab, productmatches, getafnfee, productInfo){
     // 初期値をセット
-    page.asin = null;
-    page.cartPrice = null;
-    page.isAmazonProduct = false;
+    // asin = null;
+    // cartPrice = null;
+    // isAmazonProduct = false;
     
-    page.productInfo = page.productInfo || {};
+    // productInfo = productInfo || {};
 
-    page.state = 1001;
+    productInfo.state = 1001;// 読み込み
 
     // ************************** テスト用 **************************
     // ポップアップページのURLを除外する。※リリース時はコメントアウト
-    if(page.isTest){
-        // pattern = new RegExp( '^chrome-extension://([a-z]{32})/popup.html$' );
-        // result = url.match( pattern );
+    // if(page.isTest){
+    //     // pattern = new RegExp( '^chrome-extension://([a-z]{32})/popup.html$' );
+    //     // result = url.match( pattern );
+
+    //     productInfo.asin = test.asin;// デバッグ用に仮のASINを返す
+    //     productmatches.data.searchKey = test.asin;
+    //     console.log("テスト用にasinにtestAsinをセット");
+
+    //     // ページからカート価格が取得できないので仮のカート価格をセット
+    //     productInfo.cartPrice = test.cartPrice;
+    //     console.log("テスト用にcartPriceにtestCartPriceをセット");
         
-        page.asin = page.testAsin;// デバッグ用に仮のASINを返す
-        console.log("テスト用にasinにpage.testAsinをセット");
+    //     page.isAmazonProduct = true;
 
-        // ページからカート価格が取得できないので仮のカート価格をセット
-        page.productInfo.cartPrice = page.testCartPrice;
-        console.log("テスト用にcartPriceにpage.testCartPriceをセット");
-        
-        page.isAmazonProduct = true;
-
-        getProductInfoFromAmazonAPI(page.asin, 'ja_JP', 'ibHsrDQYkpn6kkFIiBxJFTFw21gj3D', page.productInfo);
+    //     getProductInfoFromAmazonAPI(productmatches, getafnfee, productInfo);
 
 
-        return;
-    }
+    //     return;
+    // }
     // ************************** ここまで **************************
 
-    page.asin = getASINFromAmazonURL(tab.url);
-    if(page.asin == null) {
+    // URLからASINを取得
+    productInfo.asin = getASINFromAmazonURL(tab.url);
+    if(productInfo.asin == null) {
         page.isAmazonProduct = false;
         return;
     }
     page.isAmazonProduct = true;
+    productmatches.data.searchKey = productInfo.asin;
 
     // content.jsからカート価格を取得　chrome.runtime.onMessage.addListenerへ
     sendToContent('get_price', tab);
-
-    // page.productInfo = getProductInfoFromAmazonAPI(page.asin, 'ja_JP', 'ibHsrDQYkpn6kkFIiBxJFTFw21gj3D', page.productInfo);
-    // if(page.productInfo == null) page.state = 2000;
-    // else page.state = 1000;
-    console.log("background.js 173:", page.productInfo);
-
+    //sendToContent(new ContentScripts('get_price', null), tab);
     
+
+    getProductInfoFromAmazonAPI(productmatches, getafnfee, productInfo);
+    console.log("background.js 173:", productInfo);
 }
 
-// 
+// content.jsからデータを受け取る(カート価格の取得)
 chrome.runtime.onMessage.addListener(
     function(request, sender, callback) {
-        page.productInfo.cartPrice = request.cartPrice;
-        console.log(page.cartPrice);
+        productInfo.cartPrice = request.cartPrice;
+        console.log("background.js 310:",request.cartPrice);
         return true;// 非同期のため明示的にtrueを返す
     }
 );
@@ -255,7 +321,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     }
     else if(changeInfo.status == "complete") {// ページがすべて読み込まれ完了したとき
         chrome.tabs.getSelected(null, function(tab) {
-            init(tab);
+            init(tab, productmatches, getafnfee, productInfo);
         });
     }
 });
@@ -264,7 +330,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 // ページがAMAZON商品ページ以外はcommonページを取得
 chrome.tabs.onActivated.addListener(function(tab) {// タブ変更イベント 
     chrome.tabs.getSelected(null, function(tab) {
-        init(tab);
+        init(tab, productmatches, getafnfee, productInfo);
     });
 });
 

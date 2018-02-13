@@ -19,6 +19,7 @@ $(function() {
     chrome.runtime.onMessage.addListener(
         function(msg, sender, callback) {
             if (msg.command && (msg.command == "get_price")) {// タブチェンジイベントをbackground.jsから取得
+                console.log("content.js:22 ", $('#priceblock_ourprice').text());
                 //;// amazon商品ページから価格を取得
                 sendDataToBackground({ cartPrice: formatFromCommaToInt($('#priceblock_ourprice').text()) });
             }

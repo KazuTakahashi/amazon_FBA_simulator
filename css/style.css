@@ -105,7 +105,7 @@ object {
     font-size: 12px;
     /* -webkit-transform: scale(0.9);
     -webkit-transform-origin: 0 0; */
-    color: #000000;
+    /* color: #000000; */
     margin: 0;
     padding: 0;
 
@@ -207,7 +207,7 @@ input#keyword:focus {
 }
 .num > span {
     font-size: 13px;
-    color: rgb(0, 0, 0);
+    /* color: rgb(0, 0, 0); */
     display: table-cell;
     vertical-align: middle;
     text-align: right;
@@ -240,7 +240,7 @@ input#keyword:focus {
     padding-left: 31px;
 }
 #delivered-fee > .index > span{
-    color: #363636;
+    /* colosr: #363636; */
 }
 
 #footer {
@@ -295,6 +295,13 @@ hr {
     border-style: solid;
     margin-top: 12px;
     margin-bottom: 12px;
+}
+
+.profit {
+    color: #32B212;
+}
+.loss {
+    color: #E54237;
 }
 
 .tooltip {

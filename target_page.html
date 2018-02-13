@@ -24,16 +24,16 @@
             <ul>
               <ul id="cost" class="row clearfix">
                 <div class="index"><span>商品原価</span></div>
-                <div class="unit"><span>&yen;</span></div>
+                <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
                 <div class="input">
-                  <form action="#"><input class="format-num"  ng-model="productInfo.cost" type="text" value="1,000"  placeholder="0" name="sum"></form>
+                  <form action="#"><input class="format-num"  ng-model="productInfo.cost"  type="text" value="1,000"  placeholder="0" name="sum"></form>
                 </div>
               </ul>
               <ul id="price" class="row clearfix">
                 <div class="index"><span>商品価格</span></div>
-                <div class="unit"><span>&yen;</span></div>
+                <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
                 <div class="input">
-                  <form action="#"><input type="text" ng-model="productInfo.cartPrice" value="500" placeholder="0" name="sum"></form>
+                  <form action="#"><input type="text" ng-model="productInfo.cartPrice" placeholder="0" name="sum"></form>
               </div>
               </ul>
               <ul class="row">
@@ -45,8 +45,8 @@
                             <object type="image/svg+xml" data="img/info_popup.svg"></object>
                         </button> -->
                       </div>
-                      <div class="unit"><span>&yen;</span></div>
-                      <div class="num"><span>5,352</span></div>
+                      <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
+                      <div class="num"><span>{{getTotalSalesFee() | number:0}}</span></div>
                   </header>
                   <ul class="children">
                     <li id="total-exhibitant-fee-wrapper" class="tooltip-wrapper">
@@ -57,19 +57,19 @@
                                   <object type="image/svg+xml" data="img/info_popup.svg"></object>
                               </button>
                             </div>
-                            <div class="unit"><span>&yen;</span></div>
-                            <div class="num"><span>4,290</span></div>
+                            <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
+                            <div class="num"><span>{{productInfo.cartPrice*productInfo.referralFeeRatio+productInfo.fixedClosingFee+productInfo.variableClosingFee | number:0}}</span></div>
                         </header>
                         <ul class="children tooltip">
                           <li id="referral-fee" class="clearfix">
                               <div class="index"><span>販売手数料</span></div>
-                              <div class="unit"><span>&yen;</span></div>
-                              <div class="num"><span>4,198</span></div>
+                              <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
+                              <div class="num"><span>{{productInfo.cartPrice*productInfo.referralFeeRatio | number:0}}</span></div>
                           </li>
                           <li id="closing-fee" class="clearfix">
                               <div class="index"><span>カテゴリー成約料</span></div>
-                              <div class="unit"><span>&yen;</span></div>
-                              <div class="num"><span>108</span></div>
+                              <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
+                              <div class="num"><span>{{productInfo.fixedClosingFee+productInfo.variableClosingFee | number:0}}</span></div>
                           </li>
                         </ul>
                     </li>
@@ -81,32 +81,32 @@
                                   <object type="image/svg+xml" data="img/info_popup.svg"></object>
                               </button>
                             </div>
-                            <div class="unit"><span>&yen;</span></div>
-                            <div class="num"><span>1,054</span></div>
+                            <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
+                            <div class="num"><span>{{productInfo.pickAndPackFee+productInfo.weightHandlingFee+productInfo.storageFee | number:0}}</span></div>
                         </header>
                         <ul class="children tooltip">
                           <li id="pick-and-pack-fee" class="clearfix">
                               <div class="index"><span>出荷作業手数料</span></div>
-                              <div class="unit"><span>&yen;</span></div>
-                              <div class="num"><span>588</span></div>
+                              <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
+                              <div class="num"><span>{{productInfo.pickAndPackFee | number:0}}</span></div>
                           </li>
                           <li id="weight-handling-fee" class="clearfix">
                               <div class="index"><span>発送重量手数料</span></div>
-                              <div class="unit"><span>&yen;</span></div>
-                              <div class="num"><span>385</span></div>
+                              <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
+                              <div class="num"><span>{{productInfo.weightHandlingFee | number:0}}</span></div>
                           </li>
                           <li id="storage-fee" class="clearfix">
                               <div class="index"><span>月間保管手数料</span></div>
-                              <div class="unit"><span>&yen;</span></div>
-                              <div class="num"><span>108</span></div>
+                              <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
+                              <div class="num"><span>{{productInfo.storageFee | number:0}}</span></div>
                           </li>
                         </ul>
                     </li>
                     <li id="delivered-fee"  class="clearfix">
                         <div class="index"><span>納品費用</span></div>
-                        <div class="unit"><span>&yen;</span></div>
+                        <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
                         <div class="input">
-                          <form action="#"><input type="text" value="150" placeholder="0" name="sum"></form>
+                          <form action="#"><input type="text" ng-model="productInfo.deliveredFee" placeholder="0" name="sum"></form>
                         </div>
                     </li>
                   </ul>
@@ -115,23 +115,23 @@
               <hr>
               <ul id="total-cost" class="row clearfix">
                 <div class="index"><span>総コスト</span></div>
-                <div class="unit"><span>&yen;</span></div>
-                <div class="num"><span>36,552</span></div>
+                <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
+                <div class="num"><span>{{getTotalCost() | number:0}}</span></div>
               </ul>
               <ul id="profit" class="row clearfix">
                 <div class="index"><span>純利益</span></div>
-                <div class="unit"><span>&yen;</span></div>
-                <div class="num"><span>2,248</span></div>
+                <div class="unit"><span>{{productInfo.currency|currencyUnit}}</span></div>
+                <div class="num"><span ng-class="{profit:productInfo.profit>0, loss:productInfo.profit<0}">{{getProfit() | number:0}}</span></div>
               </ul>
               <ul id="profit-margin" class="row clearfix">
                 <div class="index"><span>利益率</span></div>
-                <div class="unit"><span>&yen;</span></div>
-                <div class="num"><span>5.79</span></div>
+                <div class="unit"><span>%</span></div>
+                <div class="num"><span ng-class="{profit:productInfo.profitMargin>0, loss:productInfo.profitMargin<0}">{{getProfitMargin() | number:1}}</span></div>
               </ul>
               <ul id="roi" class="row clearfix">
                 <div class="index"><span>投資利益率(ROI)</span></div>
-                <div class="unit"><span>&yen;</span></div>
-                <div class="num"><span>6.15</span></div>
+                <div class="unit"><span>%</span></div>
+                <div class="num"><span ng-class="{profit:productInfo.roi>0, loss:productInfo.roi<0}">{{getROI() | number:1}}</span></div>
               </ul>
             </ul>
           </section>
